@@ -139,11 +139,12 @@ void Image2RTSPNodelet::url_connected(string url) {
 	std::string mountpoint, source, type;
 
 	NODELET_INFO("Client connected: %s", url.c_str());
-	ros::NodeHandle& nh = getPrivateNodeHandle();
+	ros::NodeHandle& pnh = getPrivateNodeHandle();
+	ros::NodeHandle& nh = getNodeHandle();
 
 	// Get the parameters from the rosparam server
 	XmlRpc::XmlRpcValue streams;
-	nh.getParam("streams", streams);
+	pnh.getParam("streams", streams);
 	ROS_ASSERT(streams.getType() == XmlRpc::XmlRpcValue::TypeStruct);
 
 	// Go through and parse each stream
